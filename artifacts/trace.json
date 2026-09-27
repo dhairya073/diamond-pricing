@@ -1,0 +1,129 @@
+{
+  "input": {
+    "carat": 3.4,
+    "cut": "Very Good",
+    "color": "G",
+    "clarity": "VS2",
+    "depth": 62.6,
+    "table": 55.0,
+    "x": 9.49,
+    "y": 9.42,
+    "z": 5.92
+  },
+  "derived": {
+    "volume": {
+      "value": 529.22,
+      "formula": "x * y * z",
+      "note": "9.49 x 9.42 x 5.92 mm"
+    },
+    "carat_per_volume": {
+      "value": 0.006425,
+      "formula": "carat / volume",
+      "note": "compactness: how tightly the weight is packed"
+    },
+    "log_carat": {
+      "value": 1.4816,
+      "formula": "ln(1 + carat)",
+      "note": "tames the long right tail of weight"
+    }
+  },
+  "encoding": [
+    {
+      "feature": "cut",
+      "value": "Very Good -> 2",
+      "why": "grades are ordered, so the order is kept instead of 5 separate columns"
+    },
+    {
+      "feature": "color",
+      "value": "G -> 3",
+      "why": "J is 0 through D being 6"
+    },
+    {
+      "feature": "clarity",
+      "value": "VS2 -> 3",
+      "why": "I1 is 0 through IF being 7"
+    }
+  ],
+  "tree": {
+    "leaf_size": 400,
+    "leaf_median_price": 11036,
+    "top_features": [
+      {
+        "feature": "volume",
+        "importance": 0.6755
+      },
+      {
+        "feature": "y",
+        "importance": 0.1922
+      },
+      {
+        "feature": "clarity",
+        "importance": 0.0629
+      },
+      {
+        "feature": "color",
+        "importance": 0.0324
+      }
+    ],
+    "neighbours": [
+      {
+        "carat": 0.3,
+        "cut": "Very Good",
+        "color": "G",
+        "clarity": "VS2",
+        "price": 630
+      },
+      {
+        "carat": 0.3,
+        "cut": "Premium",
+        "color": "G",
+        "clarity": "VS2",
+        "price": 630
+      },
+      {
+        "carat": 0.3,
+        "cut": "Premium",
+        "color": "G",
+        "clarity": "VS2",
+        "price": 630
+      },
+      {
+        "carat": 0.3,
+        "cut": "Ideal",
+        "color": "H",
+        "clarity": "VVS2",
+        "price": 631
+      },
+      {
+        "carat": 0.3,
+        "cut": "Very Good",
+        "color": "H",
+        "clarity": "VS1",
+        "price": 630
+      }
+    ]
+  },
+  "result": {
+    "predicted_price": 16886.11,
+    "price_per_carat": 4966.5,
+    "lowest_quality_price": 13218.93,
+    "quality_premium": 3667.18,
+    "predicted_segment": "Luxury",
+    "segment_probabilities": {
+      "Budget": 0.0,
+      "Mid-range": 0.0,
+      "Premium": 0.0,
+      "Luxury": 1.0
+    },
+    "cluster": 0
+  },
+  "reality_check": {
+    "source_stone_price": 12545,
+    "market_median_price": null,
+    "comparable_stones": 0,
+    "comparison_group": "",
+    "carat_tolerance": null,
+    "error_pct": null,
+    "price_spread": null
+  }
+}

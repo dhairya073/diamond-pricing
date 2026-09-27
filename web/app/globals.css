@@ -1,0 +1,557 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design language
+   Cream paper ground, deep aubergine panels, one peach accent, lilac for
+   secondary text. Space Grotesk carries display, DM Sans carries reading,
+   monospace carries labels and numbers. The site is dark aubergine by default
+   because that is where the accent and the paper contrast read best; light
+   mode is a true inversion, not a dimmed version.
+--------------------------------------------------------------------------- */
+
+:root {
+  --paper: #f6f2e9;
+  --paper-2: #efe9dc;
+  --ink: #2c2038;
+  --ink-soft: #6d6173;
+  --ink-faint: #9c92a6;
+  --night: #20152f;
+  --night-2: #2a1c3d;
+  --night-3: #35244c;
+  --cream: #fffaf0;
+  --accent: #ffbc87;
+  --accent-deep: #e08a4a;
+  --lilac: #d6c4df;
+  --line: #ded4c4;
+  --line-dark: #3d2b57;
+  /* Light-mode variants of the two small-text tokens. The dark values are
+     tuned for an aubergine ground and are far too light on cream: the accent
+     drops to 2.38:1 and the faint index to 2.66:1, both under WCAG AA for
+     small text. These two are the measured replacements. */
+  --eyebrow-on-light: #9a5216;
+  --faint-on-light: #6d6173;
+  /* Deeper accent for TEXT on the cream ground. The peach accent itself is
+     2.38:1 on paper, fine for a border or a large display number but not for
+     13px hover text or an inline code chip, so light mode uses this for
+     anything the reader has to read. */
+  --accent-text-on-light: #9a5216;
+
+  --font-grotesk: "Space Grotesk";
+  --font-dm: "DM Sans";
+
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 20px;
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-night: var(--night);
+  --color-night-2: var(--night-2);
+  --color-night-3: var(--night-3);
+  --color-cream: var(--cream);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-lilac: var(--lilac);
+  --color-line: var(--line);
+  --color-line-dark: var(--line-dark);
+  --font-sans: var(--font-dm), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  background: var(--night);
+}
+
+body {
+  background: var(--night);
+  color: var(--cream);
+  font-family: var(--font-dm), ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--night);
+}
+
+/* --- display type: tight tracking, big, few words per line ---------------- */
+.display {
+  font-family: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.display-xl {
+  font-size: clamp(2.75rem, 8.5vw, 6.4rem);
+}
+.display-lg {
+  font-size: clamp(2rem, 5.2vw, 3.5rem);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+.display-md {
+  font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+.display-sm {
+  font-size: 1.08rem;
+  letter-spacing: -0.015em;
+  line-height: 1.28;
+}
+
+/* --- the small monospace label above every section ---------------------- */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lilac);
+}
+
+.index {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+}
+
+.lede {
+  font-size: clamp(1.02rem, 1.5vw, 1.2rem);
+  line-height: 1.62;
+  color: var(--lilac);
+  text-wrap: pretty;
+}
+
+.prose-note {
+  font-size: 15px;
+  line-height: 1.66;
+  color: var(--lilac);
+  text-wrap: pretty;
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+code.inline {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--night-3);
+  border: 1px solid var(--line-dark);
+  color: var(--accent);
+  padding: 0.1em 0.38em;
+  border-radius: var(--r-sm);
+}
+
+/* --- panels -------------------------------------------------------------- */
+.panel {
+  background: var(--night-2);
+  border: 1px solid var(--line-dark);
+  border-radius: var(--r-lg);
+}
+
+.panel-raised {
+  background: var(--night-3);
+  border: 1px solid var(--line-dark);
+  border-radius: var(--r-md);
+}
+
+.panel-light {
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+
+.hairline {
+  border-top: 1px solid var(--line-dark);
+}
+
+/* --- section rhythm ------------------------------------------------------ */
+.section {
+  padding-block: clamp(4.5rem, 11vh, 8.5rem);
+  position: relative;
+}
+
+.section-tight {
+  padding-block: clamp(3rem, 7vh, 5rem);
+}
+
+.shell {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.75rem);
+}
+
+/* --- links: accent underline, no colour jump on hover ------------------- */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: text-decoration-color 140ms ease;
+}
+
+.link:hover {
+  text-decoration-color: var(--accent);
+}
+
+/* --- buttons ------------------------------------------------------------- */
+.btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.72rem 1.25rem;
+  border-radius: var(--r-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 120ms ease, background-color 140ms ease,
+    border-color 140ms ease, color 140ms ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--night);
+  font-weight: 600;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #ffd0a8;
+}
+
+.btn-primary:disabled {
+  background: var(--night-3);
+  color: var(--ink-faint);
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--cream);
+  border-color: var(--line-dark);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-ghost:disabled {
+  color: var(--ink-faint);
+  cursor: not-allowed;
+}
+
+/* --- form controls ------------------------------------------------------- */
+.field {
+  width: 100%;
+  background: var(--night);
+  border: 1px solid var(--line-dark);
+  color: var(--cream);
+  border-radius: var(--r-md);
+  padding: 0.6rem 0.75rem;
+  font-family: var(--font-dm), ui-sans-serif, system-ui, sans-serif;
+  font-size: 14.5px;
+  transition: border-color 140ms ease;
+}
+
+.field:hover {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--line-dark));
+}
+
+.field:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+select.field {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--lilac) 50%),
+    linear-gradient(135deg, var(--lilac) 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 2rem;
+  cursor: pointer;
+}
+
+/* --- range slider, themed so the thumb is visible on aubergine ---------- */
+input[type="range"] {
+  width: 100%;
+  height: 22px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px;
+  background: var(--line-dark);
+  border-radius: 999px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--night);
+  transition: transform 120ms ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.18);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 3px;
+  background: var(--line-dark);
+  border-radius: 999px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--night);
+}
+
+input[type="range"]::-focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+/* --- focus ring, consistent everywhere ---------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* --- chart plate: PNGs are drawn on paper, so give them a deliberate one.
+   One set of light charts, deliberately framed, rather than a second
+   training run that renders dark variants for the same numbers. ----------- */
+.plate {
+  background: var(--paper);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--line-dark);
+}
+
+.plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.caption {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--lilac);
+  text-wrap: pretty;
+}
+
+/* --- the stepper used by the prediction trace --------------------------- */
+.step-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--line-dark);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.step-dot:hover {
+  transform: scale(1.25);
+}
+
+.step-dot[data-on="true"] {
+  background: var(--accent);
+}
+
+/* --- key/value rows, the spec-sheet motif ------------------------------- */
+.kv {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-block: 0.62rem;
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.kv:last-child {
+  border-bottom: none;
+}
+
+.kv dt {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  flex-shrink: 0;
+}
+
+.kv dd {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 13.5px;
+  color: var(--cream);
+  text-align: right;
+}
+
+/* --- light mode: a true inversion -------------------------------------- */
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+  }
+
+  html,
+  body {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  .panel {
+    background: var(--paper-2);
+    border-color: var(--line);
+  }
+
+  .panel-raised {
+    background: #ffffff;
+    border-color: var(--line);
+  }
+
+  .field {
+    background: #ffffff;
+    border-color: var(--line);
+    color: var(--ink);
+  }
+
+  .field:focus {
+    border-color: var(--accent-deep);
+  }
+
+  select.field {
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%),
+      linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%);
+  }
+
+  .kv {
+    border-bottom-color: var(--line);
+  }
+
+  .kv dd {
+    color: var(--ink);
+  }
+
+  .lede,
+  .prose-note,
+  .caption {
+    color: var(--ink-soft);
+  }
+
+  .eyebrow {
+    color: var(--eyebrow-on-light);
+  }
+
+  .index,
+  .kv dt,
+  .caption .index {
+    color: var(--faint-on-light);
+  }
+
+  .btn-ghost {
+    color: var(--ink);
+    border-color: var(--line);
+  }
+
+  .btn-ghost:hover:not(:disabled) {
+    border-color: var(--accent-text-on-light);
+    color: var(--accent-text-on-light);
+  }
+
+  .plate {
+    border-color: var(--line);
+  }
+
+  code.inline {
+    background: var(--paper-2);
+    border-color: var(--line);
+    color: var(--accent-text-on-light);
+  }
+
+  .link {
+    color: var(--accent-text-on-light);
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    background: var(--line);
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    border-color: var(--paper);
+  }
+
+  input[type="range"]::-moz-range-track {
+    background: var(--line);
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    border-color: var(--paper);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

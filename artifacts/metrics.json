@@ -1,0 +1,405 @@
+{
+  "cleaning": {
+    "raw_rows": 53940,
+    "missing_cells": 0,
+    "zero_or_negative_dims": 20,
+    "extreme_dimensions_gt_30mm": 3,
+    "duplicate_rows": 145,
+    "clean_rows": 53772,
+    "removed_rows": 168
+  },
+  "regression": {
+    "seed": 42,
+    "n_train": 43017,
+    "n_test": 10755,
+    "linear": {
+      "model": "LinearRegression",
+      "mae": 777.1165616656983,
+      "rmse": 1146.9144703490983,
+      "r2": 0.9153172841981009,
+      "cv_rmse_mean": 1162.6047748512428,
+      "cv_rmse_std": 11.174456674718181
+    },
+    "linear_coefficients": {
+      "carat": -1.4072430133591438,
+      "depth": 0.009151292731509789,
+      "table": 0.0013414828702484752,
+      "x": 0.25671725778513943,
+      "y": 0.23352133093299945,
+      "z": 0.1881699475044291,
+      "volume": -0.0038211555231702113,
+      "carat_per_volume": 0.010833986809285802,
+      "log_carat": 5.541664948149054,
+      "cut": 0.031357934588695006,
+      "color": 0.07810548773116763,
+      "clarity": 0.11987810083356665
+    },
+    "linear_r2_log_target": 0.9800480218053351,
+    "linear_coef_note": "Coefficients from a regression of log(price) on the same features. They read as roughly proportional price effects, which is why the raw-target fit is far worse.",
+    "random_forest": {
+      "model": "RandomForest",
+      "mae": 261.8873284923029,
+      "rmse": 522.5156195478343,
+      "r2": 0.9824235457578928,
+      "cv_rmse_mean": 555.3634320840404,
+      "cv_rmse_std": 8.137585739009335
+    },
+    "gradient_boosting": {
+      "model": "GradientBoosting",
+      "mae": 324.3373565751314,
+      "rmse": 578.1254262891746,
+      "r2": 0.978483241084459,
+      "cv_rmse_mean": 586.1345845893176,
+      "cv_rmse_std": 6.857987358285714
+    },
+    "best_model": "random_forest",
+    "best": {
+      "model": "RandomForest",
+      "mae": 261.8873284923029,
+      "rmse": 522.5156195478343,
+      "r2": 0.9824235457578928,
+      "cv_rmse_mean": 555.3634320840404,
+      "cv_rmse_std": 8.137585739009335
+    },
+    "permutation_importance": {
+      "carat": 0.0034680636795926625,
+      "depth": 0.00033359618943984426,
+      "table": 0.0003923750021446922,
+      "x": 0.0021980106242192043,
+      "y": 0.15968849470558577,
+      "z": 0.003504918780902311,
+      "volume": 0.984250649269511,
+      "carat_per_volume": 0.0005799019038174406,
+      "log_carat": 0.003962672188659237,
+      "cut": 0.0012300252039050645,
+      "color": 0.09766000242346125,
+      "clarity": 0.15833367153083155
+    },
+    "grouped_importance": {
+      "weight": 1.7300925442304054,
+      "clarity": 0.15692662961110337,
+      "colour": 0.09403295337571427,
+      "cut": 0.0011936448680023304,
+      "proportions": 0.0054405793408854874
+    },
+    "grouped_importance_note": "R2 lost when the whole group is shuffled. Weight is a single signal spread across five collinear columns, so per-feature numbers understate it."
+  },
+  "classification": {
+    "segments": [
+      "Budget",
+      "Mid-range",
+      "Premium",
+      "Luxury"
+    ],
+    "seed": 42,
+    "LogisticRegression": {
+      "accuracy": 0.9101813110181312,
+      "f1_weighted": 0.9101403036023826,
+      "f1_macro": 0.910133186882409,
+      "confusion_matrix": [
+        [
+          2543,
+          148,
+          0,
+          0
+        ],
+        [
+          202,
+          2367,
+          120,
+          0
+        ],
+        [
+          0,
+          140,
+          2388,
+          159
+        ],
+        [
+          0,
+          0,
+          197,
+          2491
+        ]
+      ],
+      "report": {
+        "Budget": {
+          "precision": 0.9264116575591985,
+          "recall": 0.9450018580453363,
+          "f1-score": 0.9356144223693893,
+          "support": 2691.0
+        },
+        "Mid-range": {
+          "precision": 0.8915254237288136,
+          "recall": 0.8802528821123095,
+          "f1-score": 0.8858532934131736,
+          "support": 2689.0
+        },
+        "Premium": {
+          "precision": 0.8828096118299446,
+          "recall": 0.8887234834387793,
+          "f1-score": 0.8857566765578635,
+          "support": 2687.0
+        },
+        "Luxury": {
+          "precision": 0.94,
+          "recall": 0.9267113095238095,
+          "f1-score": 0.9333083551892094,
+          "support": 2688.0
+        },
+        "accuracy": 0.9101813110181312,
+        "macro avg": {
+          "precision": 0.9101866732794891,
+          "recall": 0.9101723832800586,
+          "f1-score": 0.910133186882409,
+          "support": 10755.0
+        },
+        "weighted avg": {
+          "precision": 0.9101920094733281,
+          "recall": 0.9101813110181312,
+          "f1-score": 0.9101403036023826,
+          "support": 10755.0
+        }
+      }
+    },
+    "RandomForest": {
+      "accuracy": 0.9334263133426314,
+      "f1_weighted": 0.9333269057152023,
+      "f1_macro": 0.9333228716412683,
+      "confusion_matrix": [
+        [
+          2595,
+          96,
+          0,
+          0
+        ],
+        [
+          176,
+          2408,
+          105,
+          0
+        ],
+        [
+          0,
+          95,
+          2485,
+          107
+        ],
+        [
+          0,
+          0,
+          137,
+          2551
+        ]
+      ],
+      "report": {
+        "Budget": {
+          "precision": 0.9364850234572356,
+          "recall": 0.9643255295429208,
+          "f1-score": 0.95020139143171,
+          "support": 2691.0
+        },
+        "Mid-range": {
+          "precision": 0.926510196229319,
+          "recall": 0.8955001859427296,
+          "f1-score": 0.9107413010590015,
+          "support": 2689.0
+        },
+        "Premium": {
+          "precision": 0.9112577924459112,
+          "recall": 0.9248232229251954,
+          "f1-score": 0.9179903952715183,
+          "support": 2687.0
+        },
+        "Luxury": {
+          "precision": 0.9597441685477803,
+          "recall": 0.9490327380952381,
+          "f1-score": 0.9543583988028432,
+          "support": 2688.0
+        },
+        "accuracy": 0.9334263133426314,
+        "macro avg": {
+          "precision": 0.9334992951700615,
+          "recall": 0.933420419126521,
+          "f1-score": 0.9333228716412683,
+          "support": 10755.0
+        },
+        "weighted avg": {
+          "precision": 0.9335015461778389,
+          "recall": 0.9334263133426314,
+          "f1-score": 0.9333269057152023,
+          "support": 10755.0
+        }
+      }
+    },
+    "best_model": "RandomForest",
+    "best_f1": 0.9333269057152023,
+    "confusion_matrix": [
+      [
+        2595,
+        96,
+        0,
+        0
+      ],
+      [
+        176,
+        2408,
+        105,
+        0
+      ],
+      [
+        0,
+        95,
+        2485,
+        107
+      ],
+      [
+        0,
+        0,
+        137,
+        2551
+      ]
+    ],
+    "classification_report": {
+      "Budget": {
+        "precision": 0.9364850234572356,
+        "recall": 0.9643255295429208,
+        "f1-score": 0.95020139143171,
+        "support": 2691.0
+      },
+      "Mid-range": {
+        "precision": 0.926510196229319,
+        "recall": 0.8955001859427296,
+        "f1-score": 0.9107413010590015,
+        "support": 2689.0
+      },
+      "Premium": {
+        "precision": 0.9112577924459112,
+        "recall": 0.9248232229251954,
+        "f1-score": 0.9179903952715183,
+        "support": 2687.0
+      },
+      "Luxury": {
+        "precision": 0.9597441685477803,
+        "recall": 0.9490327380952381,
+        "f1-score": 0.9543583988028432,
+        "support": 2688.0
+      },
+      "accuracy": 0.9334263133426314,
+      "macro avg": {
+        "precision": 0.9334992951700615,
+        "recall": 0.933420419126521,
+        "f1-score": 0.9333228716412683,
+        "support": 10755.0
+      },
+      "weighted avg": {
+        "precision": 0.9335015461778389,
+        "recall": 0.9334263133426314,
+        "f1-score": 0.9333269057152023,
+        "support": 10755.0
+      }
+    },
+    "per_segment": [
+      {
+        "segment": "Budget",
+        "n": 2691,
+        "recall": 0.9643255295429208,
+        "precision": 0.9643255295429208
+      },
+      {
+        "segment": "Mid-range",
+        "n": 2689,
+        "recall": 0.8955001859427296,
+        "precision": 0.8955001859427296
+      },
+      {
+        "segment": "Premium",
+        "n": 2687,
+        "recall": 0.9248232229251954,
+        "precision": 0.9248232229251954
+      },
+      {
+        "segment": "Luxury",
+        "n": 2688,
+        "recall": 0.9490327380952381,
+        "precision": 0.9490327380952381
+      }
+    ],
+    "imbalance_note": "Quartile segments are equal by construction, so the test set is balanced and macro-F1 is close to weighted-F1. The real difficulty is at the tier borders: adjacent quartiles are defined by price alone, so stones either side of a cut-off can be physically identical and still get different labels."
+  },
+  "clustering": {
+    "k": 2,
+    "silhouette": 0.35142719715490134,
+    "silhouette_by_k": {
+      "2": 0.35142719715490134,
+      "3": 0.33688798968264644,
+      "4": 0.3183145430951541,
+      "5": 0.2808855580298576,
+      "6": 0.2775528123387187,
+      "7": 0.2636964765226636,
+      "8": 0.25594784801834364
+    },
+    "profiles": [
+      {
+        "cluster": 1,
+        "n": 32327,
+        "median_carat": 0.42,
+        "median_price": 1090.0,
+        "median_price_per_carat": 2700.0,
+        "modal_cut": "Ideal",
+        "modal_color": "E",
+        "modal_clarity": "VS2"
+      },
+      {
+        "cluster": 0,
+        "n": 21445,
+        "median_carat": 1.13,
+        "median_price": 6300.0,
+        "median_price_per_carat": 5356.11510791367,
+        "modal_cut": "Premium",
+        "modal_color": "G",
+        "modal_clarity": "SI2"
+      }
+    ],
+    "within_cluster_clarity": [
+      {
+        "cluster": 0,
+        "n": 21445,
+        "clarity_min_grade": "I1",
+        "clarity_max_grade": "IF",
+        "clarity_min_ppc": 3079.8198125404006,
+        "clarity_max_ppc": 9102.777777777777,
+        "clarity_spread_x": 2.9556202413898096
+      },
+      {
+        "cluster": 1,
+        "n": 32327,
+        "clarity_min_grade": "I1",
+        "clarity_max_grade": "IF",
+        "clarity_min_ppc": 1587.1428571428573,
+        "clarity_max_ppc": 2981.8181818181815,
+        "clarity_spread_x": 1.8787333278782419
+      }
+    ],
+    "cluster_segment_crosstab": {
+      "Budget": {
+        "0": 0,
+        "1": 13454
+      },
+      "Mid-range": {
+        "0": 256,
+        "1": 13188
+      },
+      "Premium": {
+        "0": 7832,
+        "1": 5601
+      },
+      "Luxury": {
+        "0": 13357,
+        "1": 84
+      }
+    },
+    "modal_segment_agreement": 0.4986052220486499,
+    "interpretation": "Fitted on size and proportion with no price input, k-means found 2 size bands, not quality bands. The modal cut grade is Ideal in all four price quartiles, and the two views agree on 49.9% of stones, which is expected from 2 clusters against 4 quartiles. The tiers are size brackets in practice. Within a single cluster, clarity still separates price sharply, so quality governs the choice inside a size band while weight governs the choice between them."
+  }
+}
