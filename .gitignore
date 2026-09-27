@@ -23,6 +23,7 @@ check_leaf_claim.py
 web/node_modules/
 web/.next/
 web/out/
+.vercel/
 web/.vercel/
 web/.turbo/
 web/next-env.d.ts
@@ -43,3 +44,4 @@ Thumbs.db
 # Scratch images produced while checking the rendered page
 shot.jpg
 slice*.jpg
+
