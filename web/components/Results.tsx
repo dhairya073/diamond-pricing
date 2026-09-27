@@ -67,12 +67,12 @@ export function Results({ data }: { data: Summary }) {
       <section id="eda">
         <div className="grid gap-6 lg:grid-cols-2">
           <Figure
-            src="/api/charts/01_distributions.png"
+            src="/charts/01_distributions.png"
             alt="Histograms of price, carat and price per carat"
             caption={`Price and carat are both strongly right-skewed, with skewness of ${e.skew.price.toFixed(1)} and ${e.skew.carat.toFixed(1)}. A few very large stones pull the mean well above the median, so a median or a log scale describes the typical diamond far better than an average does.`}
           />
           <Figure
-            src="/api/charts/02_carat_price.png"
+            src="/charts/02_carat_price.png"
             alt="Density hexbin of carat against price on log scales, with the fitted power law"
             caption={`Weight is the dominant driver. On log-log axes the relationship is almost a straight line, with a correlation of ${e.carat_price_r_log.toFixed(3)}. The fitted slope is an elasticity of ${e.elasticity.toFixed(2)}: a 10% heavier stone costs roughly ${(Math.pow(1.1, e.elasticity) * 100 - 100).toFixed(0)}% more, so price rises faster than weight.`}
           />
@@ -80,12 +80,12 @@ export function Results({ data }: { data: Summary }) {
 
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           <Figure
-            src="/api/charts/03_quality_boxplots.png"
+            src="/charts/03_quality_boxplots.png"
             alt="Box plots of price by cut, colour and clarity grade"
             caption="Better grades cost more at every weight, but the gap widens with size, so the raw medians below understate what quality is worth on a large stone."
           />
           <Figure
-            src="/api/charts/04_correlation_heatmap.png"
+            src="/charts/04_correlation_heatmap.png"
             alt="Correlation heatmap across the numeric features"
             caption={`Carat correlates with the girdle measurements at ${(e.correlations.carat_volume ?? 0).toFixed(2)} for volume, near-perfectly, because volume is derived from them. Redundant columns like these make per-column importance unreliable, which is why the importance section below reports feature groups instead.`}
           />
@@ -192,7 +192,7 @@ export function Results({ data }: { data: Summary }) {
 
         <div className="mt-6">
           <Figure
-            src="/api/charts/11_grade_effect_by_size.png"
+            src="/charts/11_grade_effect_by_size.png"
             alt="Line chart of worst grade as a percentage of best grade, across carat bands, for clarity, cut and colour"
             caption="The same comparison as a chart. Clarity and cut fall as stones get heavier, meaning the premium grows. Colour rises, meaning its premium shrinks. Reading the chart this way matters: the y axis is worst divided by best, so down is good for the buyer."
           />
@@ -252,7 +252,7 @@ export function Results({ data }: { data: Summary }) {
 
           <div className="space-y-6">
             <Figure
-              src="/api/charts/07_predicted_vs_actual.png"
+              src="/charts/07_predicted_vs_actual.png"
               alt="Hexbin of predicted against actual price, and a residual plot"
               caption="Left: predictions sit close to the diagonal across four orders of magnitude. Right: residuals are centred on zero for most of the range but fan out at the top, meaning the model is least certain about the most expensive stones, which is also where absolute error matters most."
             />
@@ -320,7 +320,7 @@ export function Results({ data }: { data: Summary }) {
 
           <div className="space-y-6">
             <Figure
-              src="/api/charts/09b_confusion_matrix.png"
+              src="/charts/09b_confusion_matrix.png"
               alt="Confusion matrix of predicted against true value tier"
               caption="The diagonal is heavy, meaning most stones land in the right tier. The off-diagonal cells sit almost entirely between neighbouring tiers, and no stone is confused with a tier two steps away, so the errors are boundary cases rather than nonsense."
             />
@@ -374,7 +374,7 @@ export function Results({ data }: { data: Summary }) {
       <section id="clustering">
         <div className="grid gap-6 lg:grid-cols-2">
           <Figure
-            src="/api/charts/10_kmeans_clusters.png"
+            src="/charts/10_kmeans_clusters.png"
             alt="Scatter of carat against volume coloured by K-means cluster"
             caption={`K-means finds two groups with a silhouette score of ${k.silhouette.toFixed(3)}. The split is by size, not by price: one group is small stones, the other large ones. This is a different question from the value tiers above, and the two do not agree.`}
           />

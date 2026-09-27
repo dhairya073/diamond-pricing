@@ -1,0 +1,463 @@
+{
+  "meta": {
+    "rows": 53772,
+    "seed": 42
+  },
+  "eda": {
+    "skew": {
+      "price": 1.6182905900212567,
+      "carat": 1.1131871281333137
+    },
+    "carat_price_r_log": 0.9659389723814285,
+    "carat_price_r_raw": 0.921542058659105,
+    "elasticity": 1.676668469349084,
+    "price_per_carat": {
+      "median": 3496.125,
+      "p05": 1719.047619047619,
+      "p95": 8118.16599927193,
+      "max": 17828.846153846152,
+      "skew": 1.2286280095882214
+    },
+    "correlations": {
+      "carat_price": 0.9215420586590981,
+      "xy_carat": 0.9778559329364812,
+      "depth_price": -0.01106713745154216,
+      "table_price": 0.12666207576327712,
+      "z_price": 0.8819864391826706
+    },
+    "grade_tables": {
+      "cut": {
+        "order": [
+          "Fair",
+          "Good",
+          "Very Good",
+          "Premium",
+          "Ideal"
+        ],
+        "median_price": [
+          3282.0,
+          3038.0,
+          2647.0,
+          3177.5,
+          1813.0
+        ],
+        "count": [
+          1597,
+          4888,
+          12067,
+          13736,
+          21484
+        ]
+      },
+      "color": {
+        "order": [
+          "J",
+          "I",
+          "H",
+          "G",
+          "F",
+          "E",
+          "D"
+        ],
+        "median_price": [
+          4234.5,
+          3720.0,
+          3447.0,
+          2242.0,
+          2345.0,
+          1740.0,
+          1842.0
+        ],
+        "count": [
+          2802,
+          5406,
+          8265,
+          11254,
+          9517,
+          9774,
+          6754
+        ]
+      },
+      "clarity": {
+        "order": [
+          "I1",
+          "SI2",
+          "SI1",
+          "VS2",
+          "VS1",
+          "VVS2",
+          "VVS1",
+          "IF"
+        ],
+        "median_price": [
+          3348.0,
+          4071.0,
+          2822.0,
+          2057.0,
+          2010.0,
+          1316.0,
+          1094.0,
+          1080.0
+        ],
+        "count": [
+          737,
+          9141,
+          13030,
+          12225,
+          8153,
+          5056,
+          3646,
+          1784
+        ]
+      }
+    },
+    "size_controlled_grade_effect": {
+      "bands": 5,
+      "cut": {
+        "worst_grade": "Fair",
+        "best_grade": "Ideal",
+        "ratio_by_band": {
+          "0": 0.965,
+          "1": 0.8494,
+          "2": 0.8334,
+          "3": 0.7355,
+          "4": 0.7089
+        },
+        "ratio_mean": 0.8184400000000001,
+        "ratio_largest_band": 0.7089
+      },
+      "color": {
+        "worst_grade": "J",
+        "best_grade": "D",
+        "ratio_by_band": {
+          "0": 0.5926,
+          "1": 0.6487,
+          "2": 0.6678,
+          "3": 0.6861,
+          "4": 0.7137
+        },
+        "ratio_mean": 0.66178,
+        "ratio_largest_band": 0.7137
+      },
+      "clarity": {
+        "worst_grade": "I1",
+        "best_grade": "IF",
+        "ratio_by_band": {
+          "0": 0.4954,
+          "1": 0.4708,
+          "2": 0.3515,
+          "3": 0.2845,
+          "4": 0.3721
+        },
+        "ratio_mean": 0.39486,
+        "ratio_largest_band": 0.3721
+      }
+    }
+  },
+  "regression": {
+    "best": {
+      "model": "RandomForest",
+      "mae": 261.8873284923029,
+      "rmse": 522.5156195478343,
+      "r2": 0.9824235457578928,
+      "cv_rmse_mean": 555.3634320840404,
+      "cv_rmse_std": 8.137585739009335
+    },
+    "best_model": "random_forest",
+    "linear": {
+      "model": "LinearRegression",
+      "mae": 777.1165616656983,
+      "rmse": 1146.9144703490983,
+      "r2": 0.9153172841981009,
+      "cv_rmse_mean": 1162.6047748512428,
+      "cv_rmse_std": 11.174456674718181
+    },
+    "random_forest": {
+      "model": "RandomForest",
+      "mae": 261.8873284923029,
+      "rmse": 522.5156195478343,
+      "r2": 0.9824235457578928,
+      "cv_rmse_mean": 555.3634320840404,
+      "cv_rmse_std": 8.137585739009335
+    },
+    "gradient_boosting": {
+      "model": "GradientBoosting",
+      "mae": 324.3373565751314,
+      "rmse": 578.1254262891746,
+      "r2": 0.978483241084459,
+      "cv_rmse_mean": 586.1345845893176,
+      "cv_rmse_std": 6.857987358285714
+    },
+    "coefficients": {
+      "carat": -1.4072430133591438,
+      "depth": 0.009151292731509789,
+      "table": 0.0013414828702484752,
+      "x": 0.25671725778513943,
+      "y": 0.23352133093299945,
+      "z": 0.1881699475044291,
+      "volume": -0.0038211555231702113,
+      "carat_per_volume": 0.010833986809285802,
+      "log_carat": 5.541664948149054,
+      "cut": 0.031357934588695006,
+      "color": 0.07810548773116763,
+      "clarity": 0.11987810083356665
+    },
+    "permutation": {
+      "carat": 0.0034680636795926625,
+      "depth": 0.00033359618943984426,
+      "table": 0.0003923750021446922,
+      "x": 0.0021980106242192043,
+      "y": 0.15968849470558577,
+      "z": 0.003504918780902311,
+      "volume": 0.984250649269511,
+      "carat_per_volume": 0.0005799019038174406,
+      "log_carat": 0.003962672188659237,
+      "cut": 0.0012300252039050645,
+      "color": 0.09766000242346125,
+      "clarity": 0.15833367153083155
+    },
+    "grouped": {
+      "weight": 1.7300925442304054,
+      "clarity": 0.15692662961110337,
+      "colour": 0.09403295337571427,
+      "cut": 0.0011936448680023304,
+      "proportions": 0.0054405793408854874
+    },
+    "grouped_note": "R2 lost when the whole group is shuffled. Weight is a single signal spread across five collinear columns, so per-feature numbers understate it."
+  },
+  "classification": {
+    "best_model": "RandomForest",
+    "accuracy": 0.9334263133426314,
+    "f1_weighted": 0.9333269057152023,
+    "logistic": {
+      "accuracy": 0.9101813110181312,
+      "f1_weighted": 0.9101403036023826
+    },
+    "logistic_vs_rf": {
+      "accuracy": 0.9334263133426314,
+      "f1_weighted": 0.9333269057152023
+    },
+    "confusion_matrix": [
+      [
+        2595,
+        96,
+        0,
+        0
+      ],
+      [
+        176,
+        2408,
+        105,
+        0
+      ],
+      [
+        0,
+        95,
+        2485,
+        107
+      ],
+      [
+        0,
+        0,
+        137,
+        2551
+      ]
+    ],
+    "per_segment": [
+      {
+        "segment": "Budget",
+        "n": 2691,
+        "recall": 0.9643255295429208,
+        "precision": 0.9643255295429208
+      },
+      {
+        "segment": "Mid-range",
+        "n": 2689,
+        "recall": 0.8955001859427296,
+        "precision": 0.8955001859427296
+      },
+      {
+        "segment": "Premium",
+        "n": 2687,
+        "recall": 0.9248232229251954,
+        "precision": 0.9248232229251954
+      },
+      {
+        "segment": "Luxury",
+        "n": 2688,
+        "recall": 0.9490327380952381,
+        "precision": 0.9490327380952381
+      }
+    ],
+    "imbalance_note": "Quartile segments are equal by construction, so the test set is balanced and macro-F1 is close to weighted-F1. The real difficulty is at the tier borders: adjacent quartiles are defined by price alone, so stones either side of a cut-off can be physically identical and still get different labels."
+  },
+  "clustering": {
+    "k": 2,
+    "silhouette": 0.35142719715490134,
+    "silhouette_by_k": {
+      "2": 0.35142719715490134,
+      "3": 0.33688798968264644,
+      "4": 0.3183145430951541,
+      "5": 0.2808855580298576,
+      "6": 0.2775528123387187,
+      "7": 0.2636964765226636,
+      "8": 0.25594784801834364
+    },
+    "profiles": [
+      {
+        "cluster": 1,
+        "n": 32327,
+        "median_carat": 0.42,
+        "median_price": 1090.0,
+        "median_price_per_carat": 2700.0,
+        "modal_cut": "Ideal",
+        "modal_color": "E",
+        "modal_clarity": "VS2"
+      },
+      {
+        "cluster": 0,
+        "n": 21445,
+        "median_carat": 1.13,
+        "median_price": 6300.0,
+        "median_price_per_carat": 5356.11510791367,
+        "modal_cut": "Premium",
+        "modal_color": "G",
+        "modal_clarity": "SI2"
+      }
+    ],
+    "within_cluster_clarity": [
+      {
+        "cluster": 0,
+        "n": 21445,
+        "clarity_min_grade": "I1",
+        "clarity_max_grade": "IF",
+        "clarity_min_ppc": 3079.8198125404006,
+        "clarity_max_ppc": 9102.777777777777,
+        "clarity_spread_x": 2.9556202413898096
+      },
+      {
+        "cluster": 1,
+        "n": 32327,
+        "clarity_min_grade": "I1",
+        "clarity_max_grade": "IF",
+        "clarity_min_ppc": 1587.1428571428573,
+        "clarity_max_ppc": 2981.8181818181815,
+        "clarity_spread_x": 1.8787333278782419
+      }
+    ],
+    "cluster_segment_crosstab": {
+      "Budget": {
+        "0": 0,
+        "1": 13454
+      },
+      "Mid-range": {
+        "0": 256,
+        "1": 13188
+      },
+      "Premium": {
+        "0": 7832,
+        "1": 5601
+      },
+      "Luxury": {
+        "0": 13357,
+        "1": 84
+      }
+    },
+    "modal_segment_agreement": 0.4986052220486499,
+    "interpretation": "Fitted on size and proportion with no price input, k-means found 2 size bands, not quality bands. The modal cut grade is Ideal in all four price quartiles, and the two views agree on 49.9% of stones, which is expected from 2 clusters against 4 quartiles. The tiers are size brackets in practice. Within a single cluster, clarity still separates price sharply, so quality governs the choice inside a size band while weight governs the choice between them."
+  },
+  "segments": {
+    "segments": [
+      {
+        "segment": "Budget",
+        "n": 13454,
+        "median_price": 694.0,
+        "price_min": 326.0,
+        "price_max": 951.0,
+        "price_std": 149.5568738370125,
+        "iqr": 238.0,
+        "median_carat": 0.32,
+        "median_ppc": 2073.3333333333335,
+        "best_median_cut": "Ideal",
+        "best_median_color": "G",
+        "best_median_clarity": "VS2"
+      },
+      {
+        "segment": "Mid-range",
+        "n": 13444,
+        "median_price": 1574.0,
+        "price_min": 952.0,
+        "price_max": 2401.0,
+        "price_std": 443.28894482789207,
+        "iqr": 783.0,
+        "median_carat": 0.52,
+        "median_ppc": 2985.2459016393445,
+        "best_median_cut": "Ideal",
+        "best_median_color": "E",
+        "best_median_clarity": "VS2"
+      },
+      {
+        "segment": "Premium",
+        "n": 13433,
+        "median_price": 3798.0,
+        "price_min": 2402.0,
+        "price_max": 5324.0,
+        "price_std": 852.719266513536,
+        "iqr": 1511.0,
+        "median_carat": 0.91,
+        "median_ppc": 4158.888888888889,
+        "best_median_cut": "Ideal",
+        "best_median_color": "F",
+        "best_median_clarity": "SI1"
+      },
+      {
+        "segment": "Luxury",
+        "n": 13441,
+        "median_price": 8679.0,
+        "price_min": 5325.0,
+        "price_max": 18823.0,
+        "price_std": 3653.4805568192724,
+        "iqr": 5530.0,
+        "median_carat": 1.32,
+        "median_ppc": 6507.453416149068,
+        "best_median_cut": "Ideal",
+        "best_median_color": "G",
+        "best_median_clarity": "VS2"
+      }
+    ]
+  },
+  "feature_importance": [
+    {
+      "feature": "volume",
+      "importance": 0.6754842811248525
+    },
+    {
+      "feature": "y",
+      "importance": 0.1921540988036415
+    },
+    {
+      "feature": "clarity",
+      "importance": 0.0628659286366667
+    },
+    {
+      "feature": "color",
+      "importance": 0.0324382006424871
+    },
+    {
+      "feature": "log_carat",
+      "importance": 0.0122586408567806
+    },
+    {
+      "feature": "carat",
+      "importance": 0.0114766986016386
+    },
+    {
+      "feature": "z",
+      "importance": 0.0030534283653835
+    },
+    {
+      "feature": "x",
+      "importance": 0.0028317773631834
+    }
+  ]
+}

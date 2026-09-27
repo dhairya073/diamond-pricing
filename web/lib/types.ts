@@ -173,8 +173,17 @@ export interface Trace {
   };
   encoding: { feature: string; value: string; why: string }[];
   tree: {
+    /** How many trees voted, and what their answers spread across. */
     leaf_size: number;
     leaf_median_price: number;
+    tree_answers: {
+      count: number;
+      mean: number;
+      median: number;
+      min: number;
+      max: number;
+      std: number;
+    };
     top_features: { feature: string; importance: number }[];
     neighbours: TraceNeighbour[];
   };

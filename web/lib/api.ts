@@ -1,59 +1,52 @@
 import type { DiamondInput, PredictResult, Summary, Trace } from "./types";
+import { buildTraceInBrowser, loadCore, loadReference, predictCore } from "./model";
+import summaryJson from "@/data/summary.json";
+import samplesJson from "@/data/samples.json";
 
 /**
- * The FastAPI server runs locally during development and is reachable at
- * PYTHON_API_URL in production. In the browser the calls go to Next route
- * handlers under /api so the browser never needs CORS access to Python.
+ * Everything here runs without a server.
  *
- * Server Components run on the server, where a relative fetch has no base URL
- * to resolve against. There we talk to the Python server directly, which also
- * saves a network hop.
+ * The trained models total 787 MB, so they cannot be hosted next to the site.
+ * Instead export_web.py writes depth-capped forests as JSON and lib/model.ts
+ * walks them in the browser. The analysis payload and the charts ship as
+ * static files too, which removes a whole failure mode: there is no backend
+ * that can be unreachable.
+ *
+ * api.py still exists and still serves the full-precision models locally for
+ * anything that wants them. The site simply no longer depends on it.
  */
 
-const PYTHON_API = process.env.PYTHON_API_URL ?? "http://127.0.0.1:8000";
-const TIMEOUT_MS = 20000;
+type Sample = DiamondInput & { actual_price: number };
 
-const isServer = typeof window === "undefined";
+const samples = samplesJson as Sample[];
 
-function endpoint(path: string): string {
-  return isServer ? `${PYTHON_API}${path}` : path;
-}
-
-async function readError(res: Response): Promise<string> {
-  try {
-    const body = await res.json();
-    const detail = body?.detail;
-    if (typeof detail === "string") return detail;
-    if (Array.isArray(detail) && detail[0]?.msg) return String(detail[0].msg);
-    return `Request failed (${res.status})`;
-  } catch {
-    return `Request failed (${res.status})`;
-  }
-}
-
-async function getJson<T>(path: string): Promise<T> {
-  const res = await fetch(endpoint(path), {
-    signal: AbortSignal.timeout(TIMEOUT_MS),
-    cache: "no-store",
-  });
-  if (!res.ok) throw new Error(await readError(res));
-  return res.json() as Promise<T>;
-}
-
+/** The analysis payload is a bundled import, so server render needs no fetch. */
 export function fetchSummary(): Promise<Summary> {
-  return getJson<Summary>("/summary");
+  return Promise.resolve(summaryJson as unknown as Summary);
 }
 
-export function fetchSample(): Promise<DiamondInput & {
-  actual_price: number;
-  actual_segment: string;
-}> {
-  return getJson("/sample");
+/** A real stone, drawn from a fixed committed set rather than the full 2.3 MB. */
+export function fetchSample(): Promise<Sample> {
+  return Promise.resolve(samples[Math.floor(Math.random() * samples.length)]);
+}
+
+export async function predictDiamond(input: DiamondInput): Promise<PredictResult> {
+  const core = await loadCore();
+  const p = predictCore(core, input);
+  return {
+    input,
+    predicted_price: p.predicted_price,
+    price_per_carat: p.price_per_carat,
+    predicted_segment: p.predicted_segment,
+    segment_probabilities: p.segment_probabilities,
+    cluster: p.cluster,
+  } as unknown as PredictResult;
 }
 
 /**
- * The per-stone walkthrough. Always fetched from the browser, never during
- * server render, because it depends on what the reader has dialled in.
+ * The per-stone walkthrough. Needs the reference dataset as well as the
+ * model, because it borrows a real stone's measurements and builds its
+ * comparison group out of stones that are genuinely like the one asked about.
  */
 export async function fetchTrace(input: {
   carat: number;
@@ -61,32 +54,11 @@ export async function fetchTrace(input: {
   color: string;
   clarity: string;
 }): Promise<Trace> {
-  const qs = new URLSearchParams({
-    carat: String(input.carat),
-    cut: input.cut,
-    color: input.color,
-    clarity: input.clarity,
-  });
-  const res = await fetch(`/api/trace?${qs}`, {
-    signal: AbortSignal.timeout(TIMEOUT_MS),
-    cache: "no-store",
-  });
-  if (!res.ok) throw new Error(await readError(res));
-  return res.json();
+  const [core, ref] = await Promise.all([loadCore(), loadReference()]);
+  return buildTraceInBrowser(core, ref, input);
 }
 
-export async function predictDiamond(input: DiamondInput): Promise<PredictResult> {
-  const res = await fetch("/api/predict", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(input),
-    signal: AbortSignal.timeout(TIMEOUT_MS),
-  });
-  if (!res.ok) throw new Error(await readError(res));
-  return res.json();
-}
-
-/** Chart PNGs are served by Python. Proxied so the browser stays same-origin. */
+/** Charts are pre-rendered PNGs served straight from the static folder. */
 export function chartUrl(name: string): string {
-  return `/api/charts/${name}`;
+  return `/charts/${name}`;
 }

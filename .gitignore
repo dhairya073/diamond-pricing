@@ -17,6 +17,7 @@ artifacts/_full_clean.csv
 checks.py
 facts.py
 measure_compact.py
+check_leaf_claim.py
 
 # Node / Next.js
 web/node_modules/

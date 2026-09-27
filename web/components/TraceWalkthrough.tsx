@@ -348,25 +348,56 @@ function StepReason({ data }: { data: Trace }) {
   const maxImp = Math.max(...t.top_features.map((f) => f.importance), 0.0001);
   return (
     <div>
-      <h3 className="display display-md">The forest averages 300 trees</h3>
+      <h3 className="display display-md">
+        The forest averages {t.tree_answers.count} trees
+      </h3>
       <p className="prose-note mt-4 max-w-[62ch]">
-        A random forest is 300 decision trees, each asking &ldquo;is this
-        heavier than 1.4 carats?&rdquo; and averaging the answers. Each tree
-        routes this stone into one leaf, and the price is the average of the
-        training stones that landed in the same leaves. For this stone that is{" "}
-        <strong style={{ color: "var(--cream)" }}>
-          {t.leaf_size} real diamonds
-        </strong>{" "}
-        whose median price is{" "}
-        <strong style={{ color: "var(--cream)" }}>
-          {money(t.leaf_median_price)}
-        </strong>
-        .
+        A random forest is {t.tree_answers.count} decision trees. Each one asks
+        a short series of yes/no questions &mdash; is this stone heavier than
+        1.4 carats? is its table wider than 57%? &mdash; until it reaches a
+        leaf, and every leaf carries the average price of the training stones
+        that ended up in it. That leaf value is the tree&rsquo;s own answer for
+        this stone. The forest&rsquo;s prediction is nothing more than the
+        average of all {t.tree_answers.count} answers.
+      </p>
+
+      <div className="mt-7 grid gap-4 md:grid-cols-3">
+        <div className="panel-raised p-5">
+          <p className="index">Lowest tree</p>
+          <p className="num mt-2 text-xl">{money(t.tree_answers.min)}</p>
+          <p className="caption mt-2">
+            The most cautious single tree
+          </p>
+        </div>
+        <div className="panel-raised p-5" style={{ borderColor: "var(--accent)" }}>
+          <p className="index">Average of all {t.tree_answers.count}</p>
+          <p className="num mt-2 text-xl" style={{ color: "var(--accent)" }}>
+            {money(t.tree_answers.mean)}
+          </p>
+          <p className="caption mt-2">
+            This is the prediction. The mean of the answers above is the price,
+            so the arithmetic can be checked rather than trusted.
+          </p>
+        </div>
+        <div className="panel-raised p-5">
+          <p className="index">Highest tree</p>
+          <p className="num mt-2 text-xl">{money(t.tree_answers.max)}</p>
+          <p className="caption mt-2">
+            The most enthusiastic single tree
+          </p>
+        </div>
+      </div>
+
+      <p className="caption mt-4">
+        The trees disagree by about {money(t.tree_answers.std)} on average
+        (one standard deviation). That spread is a useful side effect: where
+        the trees agree, the model is on familiar ground, and where they
+        disagree, it is guessing.
       </p>
 
       <div className="mt-8">
         <p className="eyebrow mb-4">
-          Which features the trees split on most
+          What the model actually relies on
         </p>
         <div className="space-y-2.5">
           {t.top_features.map((f) => (
@@ -379,16 +410,20 @@ function StepReason({ data }: { data: Trace }) {
                   background: "var(--accent)",
                 }}
               />
-              <span className="num w-16 shrink-0 text-xs" style={{ color: "var(--ink-faint)" }}>
-                {f.importance.toFixed(2)}
+              <span className="num w-20 shrink-0 text-xs" style={{ color: "var(--ink-faint)" }}>
+                +{f.importance.toFixed(3)}
               </span>
             </div>
           ))}
         </div>
         <p className="caption mt-4">
-          Volume, carat and the two girdle measurements correlate above 0.99,
-          so the trees split the same signal across all four. Read this as one
-          strong weight signal, not four separate findings.
+          Each bar is how much R squared the model loses when that whole group
+          of columns is shuffled, so weight being far ahead of everything else
+          is the real finding. Weight is one signal spread across five columns
+          that correlate above 0.99, which is why the groups are scored
+          together rather than one column at a time. This measures how much
+          the model leans on each group, not how much each group causes a
+          price difference.
         </p>
       </div>
 
